@@ -1,0 +1,48 @@
+body {
+    background-color: #d1f0ff;
+    height: 100%;
+	margin: 0;
+	padding: 10px 10px;
+}
+#main_page{
+    display: grid;
+    grid-template-columns: 25% auto;
+    height: 50%;
+}
+#selection{
+    grid-row: 1;
+    grid-column: 1;
+    background-color: #ffc36a;
+    
+}
+#selection > p.selector_item{
+    cursor: pointer;
+    padding: 10px 10px;
+    font-size: 16px;
+}
+
+p.title{
+    padding: 0px 10px;
+    font-size: 20px;
+    text-align: center;
+}
+#parts{
+    grid-row: 1;
+    grid-column: 2;
+}
+
+th, td {
+    border: 1px solid black;
+	text-align: center;
+	padding: 10px 10px;
+}
+table{
+	border-collapse: collapse;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin:auto;
+	padding: 10px 10px;
+}
+tr{background-color: #efd7c6;}
+th{background-color: #ed853b;}
