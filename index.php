@@ -7,6 +7,11 @@
     <body>
         <h1>Electro707's Electronics Part Management</h1>
         <div id='main_page'>
+            <div id='top'>
+                <button class='top_options'>Add/Remove Parts to stock</button>
+                <button class='top_options'>Import PCB</button>
+                <button class='top_options'>Import BOM</button>
+            </div>
             <div id='selection'>
                 <p class='title'>Part Selection: </p>
                 <?php
@@ -31,10 +36,10 @@
             for (var i=0; i < div.childNodes.length; i++) {
                 elementToReturn = div.childNodes[i];
                 if (elementToReturn.className == 'selector_item'){
-                    console.log(elementToReturn.innerHTML);
-                    var a = new String(elementToReturn.innerHTML);
-                    elementToReturn.onclick = function(){selectProduct(a)}; 
-                    //elementToReturn.addEventListener("click", selectProduct(elementToReturn.innerHTML));
+                    //console.log(elementToReturn.innerHTML);
+                    elementToReturn.addEventListener("click",function(s){
+                        return function(){selectProduct(s);}
+                    }(elementToReturn.innerHTML), false);
                 }
             }
         </script>

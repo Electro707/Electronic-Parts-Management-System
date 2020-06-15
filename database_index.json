@@ -1,5 +1,57 @@
 {
     "Resistors": {
-        "Database Name": "resistors"
+        "Database Name": "resistors",
+        "DB Items": {
+            "stock":{
+                "name": "Stock",
+                "db_type": "INT NOT NULL",
+                "shows_as": "normal"
+            },
+            "value":{
+                "name": "Value",
+                "db_type": "FLOAT NOT NULL",
+                "shows_as": "engineering"
+            },
+            "tollerance":{
+                "name": "Tollerance",
+                "db_type": "FLOAT",
+                "shows_as": "percentage"
+            },
+            "power_rating":{
+                "name": "Power",
+                "db_type": "FLOAT",
+                "shows_as": "normal"
+            },
+            "package":{
+                "name": "Package",
+                "db_type": "TINYTEXT NOT NULL",
+                "shows_as": "normal"
+            }
+        }
+    },
+    "Capacitors": {
+        "Database Name": "capacitors",
+        "DB Items": {
+            "stock":{
+                "name": "Stock",
+                "db_type": "INT NOT NULL",
+                "shows_as": "normal"
+            },
+            "value":{
+                "name": "Value",
+                "db_type": "FLOAT NOT NULL",
+                "shows_as": "engineering"
+            },
+            "tollerance":{
+                "name": "Tollerance",
+                "db_type": "FLOAT",
+                "shows_as": "percentage"
+            },
+            "package":{
+                "name": "Package",
+                "db_type": "FLOAT NOT NULL",
+                "shows_as": "normal"
+            }
+        }
     }
 }
