@@ -6,7 +6,7 @@ This website is for an electronics/hobbyist parts management, complete (or will 
 
 Here is a screenshot at the software as of one of the latest commits:
 
-![Latest update](documentation/images/Screenshot_20200615_022118.png)
+![Latest update](documentation/images/Screenshot_20200618_025519.png)
 
 ## TODO:
 
@@ -17,13 +17,16 @@ Here is a screenshot at the software as of one of the latest commits:
 - [x] Handle if a table doesn't exist
 - [x] Handle an 'initializer' for the database
 - [ ] Add more components
-- [ ] Add sorting in the table
+- [x] Add sorting in the table
 - [ ] Add import BOM option
 - [ ] Add import PCB option
+- [ ] Add a warning for when there is less than a certain amount of parts (configurable)
 - [ ] Add PCB-assembly import to check against stock
 - [ ] Add GUI to add to stock
 - [ ] Add GUI to add new component
 - [ ] Add a cross-link between the parts and Octopart 
+- [x] Add a warning if the stock for a part is too low (configurable)
+- [ ] Add a settings popup
 
 ## Database
 

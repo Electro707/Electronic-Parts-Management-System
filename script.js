@@ -1,4 +1,5 @@
 // Global object storing all of the configuration file from the Json file
+var db_config_json = null;
 var config_json = null;
 // Global object storing the current key ('Resistor', 'Rapacitor', etc...)
 var current_key = null;
@@ -21,6 +22,7 @@ function selectProduct(key){
             global_table = JSON.parse(res);
             convert_query_to_types(global_table);
             createTable(global_table);
+            alert_low_quantity();
         }
     });
     
@@ -29,7 +31,7 @@ function createTable(json){
     // Clear the parts div
     $("#parts_replacable").empty();
     // A variable that stores the dictionary of the database items for the current key
-    var config_items = config_json[current_key]["DB Items"];
+    var config_items = db_config_json[current_key]["DB Items"];
     // A variable that stores an array of possible keys
     var config_keys = Object.keys(config_items);
     // Debug shit
@@ -40,25 +42,22 @@ function createTable(json){
     var content = "<table id='parts_table'>";
     // Create the header
     content += "<tr>";
-    for(var info in json[0]){
-        // console.log(config_json[current_key]);
-        if(config_keys.includes(info) == false){
-            continue;
-        }
-        content += "<th>"+config_items[info]["name"]+"</th>";
+    for(var column of config_keys){
+        content += "<th>"+config_items[column]["name"]+"</th>";
     }
     content += "</tr>";
     // Create the arrow / 2nd row.
     content += "<tr>";
-    for(var info in json[0]){
+    //for(var info in json[0]){
+    for(var column of config_keys){
         // console.log(config_json[current_key]);
-        if(config_keys.includes(info) == false){
-            continue;
-        }
+        // if(config_keys.includes(info) == false){
+        //     continue;
+        // }
         content += "<td><div>";
         // TODO: Have so the buttons sort the table
-        content += "<button class=\"arrow_button\"><img src=\"resources/up.svg\" alt=\"up\"></button>";
-        content += "<button class=\"arrow_button\"><img src=\"resources/down.svg\" alt=\"down\"></button>";
+        content += `<button class=\"sort_button\" data-type=\"up\" data-row=\"${column}\" class=\"arrow_button\"><img src=\"resources/up.svg\" alt=\"up\"></button>`;
+        content += `<button class=\"sort_button\" data-type=\"down\" data-row=\"${column}\" class=\"arrow_button\"><img src=\"resources/down.svg\" alt=\"down\"></button>`;
         content +="</div></td>";
     }
     content += "</tr>";
@@ -66,7 +65,7 @@ function createTable(json){
     for(var row of json){
         content += "<tr>";
         for(var column of config_keys){ // Only take the valid keys from each row
-            if(row[column] == null){
+            if(row[column] == null || isNaN(row[column])){
                 content += "<td></td>";
                 continue;
             }
@@ -84,6 +83,13 @@ function createTable(json){
     }
     content += "</table>";
     document.getElementById("parts_replacable").innerHTML = content;
+
+    // Create event listeners for the sort buttons
+    for(var bt of document.getElementsByClassName("sort_button")){
+        bt.addEventListener("click", function(s1, s2){
+            return function(){sort_table(s1, s2);}
+        }(bt.getAttribute('data-row'), bt.getAttribute('data-type')), false);
+    }
 }
 // A function that turns a number to an engineering notation with the right suffix
 function number_to_eng(numb){
@@ -113,7 +119,7 @@ function number_to_percentage(numb){
 // database config
 function convert_query_to_types(orig_obj){
     // A variable that stores the dictionary of the database items for the current key
-    var config_items = config_json[current_key]["DB Items"];
+    var config_items = db_config_json[current_key]["DB Items"];
     // A variable that stores an array of possible keys
     var config_keys = Object.keys(config_items);
     for(var part of orig_obj){
@@ -130,10 +136,9 @@ function convert_query_to_types(orig_obj){
 }
 
 // Function that will sort the table
-// THIS FUNCTION IS A WORK-IN-PROGRESS
-function sort_table(row){
+function sort_table(row, direction){
     // A variable that stores the dictionary of the database items for the current key
-    var config_items = config_json[current_key]["DB Items"];
+    var config_items = db_config_json[current_key]["DB Items"];
     // A variable that stores an array of possible keys
     var config_keys = Object.keys(config_items);
     // If the row is invalid, log it and return
@@ -144,12 +149,46 @@ function sort_table(row){
     // Create a new array that will be used to 'sort' the table
     var new_db_array = $.extend(true, [], global_table);
     // https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
-    new_db_array.sort((a, b) => (a[row] > b[row]) ? 1 : -1);
+    if(direction == 'up'){new_db_array.sort((a, b) => (a[row] > b[row]) ? 1 : -1);}
+    else if(direction == 'down'){new_db_array.sort((a, b) => (a[row] > b[row]) ? -1 : 1);}
     createTable(new_db_array);
+}
+
+// Create a toast (with toastr) when the stock is bellow a certain quantity
+function alert_low_quantity(){
+    for(var part of global_table){
+        if(part['stock'] <= config_json["Low Stock Quantity"]){
+            // TODO: CHange 'value' to a part description/manufacturer ID
+            toastr.warning(`Low quantity (${part['stock']}) for ${part['value']}`);
+        }
+    }
 }
 
 // Start...get JSON file
 $.getJSON("database_index.json", function(json) {
-    console.log(json); // this will show the info it in firebug console
+    // console.log(json); // this will show the info it in firebug console
+    db_config_json = json;
+});
+
+$.getJSON("configuration.json", function(json) {
+    // console.log(json); // this will show the info it in firebug console
     config_json = json;
 });
+
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "500",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};

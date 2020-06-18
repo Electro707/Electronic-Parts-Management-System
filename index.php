@@ -1,7 +1,9 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
         <script src="script.js"></script>
     </head>
     <body>
@@ -14,12 +16,15 @@
             </div>
             <div id='selection'>
                 <p class='title'>Part Selection: </p>
+                <p>Click a component to open it's stock</p>
                 <?php
+                    echo "<ul>";
                     $arr = json_decode(file_get_contents("database_index.json"), true);
                     foreach($arr as $key => $value){
                         #echo "<p class='selector_item' onclick='selectProduct('".$key."')'>".$key."</p>";
-                        echo "<p class='selector_item'>".$key."</p>";
+                        echo "<li class='selector_item'>".$key."</li>";
                     }
+                    echo "</ul>";
                 ?>
             </div>
             <div id='parts'>
@@ -32,14 +37,21 @@
 
         <script>
             var div = document.getElementById("selection");
-            var elementToReturn
+            var elementToReturn;
+            console.log(div);
             for (var i=0; i < div.childNodes.length; i++) {
-                elementToReturn = div.childNodes[i];
-                if (elementToReturn.className == 'selector_item'){
-                    //console.log(elementToReturn.innerHTML);
-                    elementToReturn.addEventListener("click",function(s){
-                        return function(){selectProduct(s);}
-                    }(elementToReturn.innerHTML), false);
+                if(div.childNodes[i].tagName == 'UL'){
+                    var ul_node = div.childNodes[i]
+                    for (var k=0; k < ul_node.childNodes.length; k++) {
+                        elementToReturn = ul_node.childNodes[k];
+                        if (elementToReturn.className == 'selector_item'){
+                            //console.log(elementToReturn.innerHTML);
+                            elementToReturn.addEventListener("click",function(s){
+                                return function(){selectProduct(s);}
+                            }(elementToReturn.innerHTML), false);
+                        }
+                    }
+                    break;
                 }
             }
         </script>
