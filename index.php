@@ -21,14 +21,13 @@
                     echo "<ul>";
                     $arr = json_decode(file_get_contents("database_index.json"), true);
                     foreach($arr as $key => $value){
-                        #echo "<p class='selector_item' onclick='selectProduct('".$key."')'>".$key."</p>";
                         echo "<li class='selector_item'>".$key."</li>";
                     }
                     echo "</ul>";
                 ?>
             </div>
             <div id='parts'>
-                <p class='title'>Selection Table</p>
+                <p class='title'>Parts: Table</p>
                 <div id='parts_replacable'>
 
                 </div>  
@@ -38,7 +37,6 @@
         <script>
             var div = document.getElementById("selection");
             var elementToReturn;
-            console.log(div);
             for (var i=0; i < div.childNodes.length; i++) {
                 if(div.childNodes[i].tagName == 'UL'){
                     var ul_node = div.childNodes[i]

@@ -26,6 +26,11 @@
                 "name": "Package",
                 "db_type": "TINYTEXT NOT NULL",
                 "shows_as": "normal"
+            },
+            "manufacturer": {
+                "name": "Manufacturer ID",
+                "db_type": "TINYTEXT",
+                "shows_as": "normal"
             }
         }
     },

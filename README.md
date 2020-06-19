@@ -13,8 +13,8 @@ Here is a screenshot at the software as of one of the latest commits:
 - [ ] Create the parametric search
 - [x] Convert a number to it's engineering notation (1000 to 1k for example)
 - [ ] Better layout the page
-- [ ] Handle if a column doesn't exist
-- [x] Handle if a table doesn't exist
+- [x] Handle if a column doesn't exist (Adds it to the table)
+- [x] Handle if a table doesn't exist (Creates it)
 - [x] Handle an 'initializer' for the database
 - [ ] Add more components
 - [x] Add sorting in the table

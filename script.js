@@ -50,12 +50,7 @@ function createTable(json){
     content += "<tr>";
     //for(var info in json[0]){
     for(var column of config_keys){
-        // console.log(config_json[current_key]);
-        // if(config_keys.includes(info) == false){
-        //     continue;
-        // }
         content += "<td><div>";
-        // TODO: Have so the buttons sort the table
         content += `<button class=\"sort_button\" data-type=\"up\" data-row=\"${column}\" class=\"arrow_button\"><img src=\"resources/up.svg\" alt=\"up\"></button>`;
         content += `<button class=\"sort_button\" data-type=\"down\" data-row=\"${column}\" class=\"arrow_button\"><img src=\"resources/down.svg\" alt=\"down\"></button>`;
         content +="</div></td>";
