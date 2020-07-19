@@ -6,7 +6,7 @@ This website is for an electronics/hobbyist parts management, complete (or will 
 
 Here is a screenshot at the software as of one of the latest commits:
 
-![Latest update](documentation/images/Screenshot_20200618_025519.png)
+![Latest update](documentation/images/Screenshot_20200719_045650.png)
 
 ## TODO:
 

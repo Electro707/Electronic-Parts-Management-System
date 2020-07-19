@@ -5,32 +5,58 @@
             "stock":{
                 "name": "Stock",
                 "db_type": "INT NOT NULL",
-                "shows_as": "normal"
+                "shows_as": "normal",
+                "webinput":{
+                    "type": "number"
+                }
             },
             "value":{
                 "name": "Value",
                 "db_type": "FLOAT NOT NULL",
-                "shows_as": "engineering"
+                "shows_as": "engineering",
+                "webinput":{
+                    "type": "text"
+                }
             },
             "tollerance":{
                 "name": "Tollerance",
                 "db_type": "FLOAT",
-                "shows_as": "percentage"
+                "shows_as": "percentage",
+                "webinput":{
+                    "type": "percentage"
+                }
             },
             "power_rating":{
                 "name": "Power",
                 "db_type": "FLOAT",
-                "shows_as": "normal"
+                "shows_as": "normal",
+                "webinput":{
+                    "type": "number"
+                }
             },
             "package":{
                 "name": "Package",
                 "db_type": "TINYTEXT NOT NULL",
-                "shows_as": "normal"
+                "shows_as": "normal",
+                "webinput":{
+                    "type": "text"
+                }
             },
             "manufacturer": {
+                "name": "Manufacturer",
+                "db_type": "TINYTEXT",
+                "shows_as": "normal",
+                "webinput":{
+                    "type": "text"
+                }
+            },
+            "manufacturer_id": {
                 "name": "Manufacturer ID",
                 "db_type": "TINYTEXT",
-                "shows_as": "normal"
+                "shows_as": "normal",
+                "webinput":{
+                    "type": "text"
+                }
             }
         }
     },

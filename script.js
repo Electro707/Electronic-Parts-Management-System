@@ -19,10 +19,14 @@ function selectProduct(key){
         data: {table: key},
         datatype: 'json',
         success: function(res){
-            global_table = JSON.parse(res);
-            convert_query_to_types(global_table);
-            createTable(global_table);
-            alert_low_quantity();
+            console.log(res)
+            if(res !== ""){
+                global_table = JSON.parse(res);
+                convert_query_to_types(global_table);
+                createTable(global_table);
+                alert_low_quantity();
+                change_part_add_modal();
+            }
         }
     });
     
@@ -48,7 +52,6 @@ function createTable(json){
     content += "</tr>";
     // Create the arrow / 2nd row.
     content += "<tr>";
-    //for(var info in json[0]){
     for(var column of config_keys){
         content += "<td><div>";
         content += `<button class=\"sort_button\" data-type=\"up\" data-row=\"${column}\" class=\"arrow_button\"><img src=\"resources/up.svg\" alt=\"up\"></button>`;
@@ -157,6 +160,36 @@ function alert_low_quantity(){
             toastr.warning(`Low quantity (${part['stock']}) for ${part['value']}`);
         }
     }
+}
+
+// Change the add part modal to whatever part is selected
+function change_part_add_modal(){
+    $("#modal-1-content").empty();
+    // A variable that stores the dictionary of the database items for the current key
+    var config_items = db_config_json[current_key]["DB Items"];
+    // A variable that stores an array of possible keys
+    var config_keys = Object.keys(config_items);
+    var content = "";
+
+    for(var column of config_keys){
+        // TODO: Have the option to pull from a list, or to add an 'other' option that unhides a select div if selected
+        content += "<label for='"+ column +"'>"+config_items[column]["name"]+": </label>";
+        if(config_items[column]["webinput"]["type"] == 'number'){
+            content += "<input name='"+ column +"' type='number'><br>";
+        }
+        else if(config_items[column]["webinput"]["type"] == 'float'){
+            content += "<input name='"+ column +"' type='number' step='any'><br>";
+        }
+        else if(config_items[column]["webinput"]["type"] == 'percentage'){
+            content += "<input name='"+ column +"' type='number' step='0.1' min='0' max='100'><br>";
+        }
+        else{
+            content += "<input name='"+ column +"' type='text'><br>";
+        }
+        
+    }
+
+    document.getElementById("modal-1-content").innerHTML = content;
 }
 
 // Start...get JSON file
