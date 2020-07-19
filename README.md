@@ -31,3 +31,7 @@ Here is a screenshot at the software as of one of the latest commits:
 ## Database
 
 The database is a mySql database, with the database name called "PartsList". Each part has it's own table, and is created if a part is clicked and the table doesn't exist. As of right now, there is no way to add a part except for manually doing it thru something like phpMyAdmin. This feature will be added in the future :)
+
+## Getting Started
+
+If you feel incline to run this webserver (for testing or development), there is a quick getting started guide of sorts ![HERE!](documentation/Getting Started.md). That guide will be more refined as time goes on.
