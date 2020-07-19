@@ -34,4 +34,4 @@ The database is a mySql database, with the database name called "PartsList". Eac
 
 ## Getting Started
 
-If you feel incline to run this webserver (for testing or development), there is a quick getting started guide of sorts ![HERE!](documentation/Getting Started.md). That guide will be more refined as time goes on.
+If you feel incline to run this webserver (for testing or development), there is a quick getting started guide of sorts ![HERE!](documentation/getting_started.md). That guide will be more refined as time goes on.
